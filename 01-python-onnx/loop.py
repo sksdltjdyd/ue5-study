@@ -57,3 +57,8 @@ for i in test_list:
 a = [(1, 2), (3, 4), (5, 6)]
 for (i, k) in a:
     print(i + k)
+
+b = 0
+for i in range(1, 11):
+    b += i
+print(b, end = " ")
