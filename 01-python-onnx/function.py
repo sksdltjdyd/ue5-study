@@ -17,4 +17,11 @@ def print_hello(name):
     print("Hello my name is %s" % name)
 
 a = print_hello("Alice")
-print(a) # None --> 출력값이 없는 함수는 None을 반환한다.
+print(a) # None --> 출력값이 없는 함수는 None을 반환한다
+
+# 입력값과 출력값이 없는 함수
+def print_hello_world():
+    print("Hello World")
+
+b = print_hello_world()
+print(b) # None --> 입력값과 출력값이 없는 함수도 None을 반환한다
