@@ -37,7 +37,9 @@ cropped_image_array = image_array[0:2000, 0:2000]
  # Image.fromarray() 함수는 NumPy 배열을 Image 객체로 변환하는 함수이다.
  # cropped_image_array는 자른 이미지 배열이므로, Image.fromarray(cropped_image_array)는 자른 이미지 배열을 Image 객체로 변환하여 반환한다.
 cropped_img = Image.fromarray(cropped_image_array)
-cropped_img.show() # 자른 이미지 보여주기
+
+# 이미지 보여주기
+cropped_img.show()
 
 # 채널 분리해서 보여주기
 red_channel = image_array[:, :, 0]
@@ -48,7 +50,7 @@ Image.fromarray(red_channel).show()
 Image.fromarray(green_channel).show()
 Image.fromarray(blue_channel).show()
 
-# 이미지 복구하고 저장하기
+# 최종 이미지 저장하기
 final_img = Image.fromarray(cropped_image_array)
 final_img.save('result_cropped.jpg')
 final_img.save('result_cropped.png')
