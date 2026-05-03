@@ -25,7 +25,41 @@ for i in img:
     print("-" * 30)
 
 for i in img:
-    # 파일 경로(path)를 이용해 이미지를 열고, 'opened_img'라는 변수에 저장
+    # 파일 경로(path)를 이용해 이미지를 열고, 'opened_img'라는 변수에 저장. 그레이 이미지로 전환
     opened_img = Image.open(i)
     gray_img = opened_img.convert('L')
     gray_img.show()
+
+# 이미지 그레이로 바꾸기 두번째 방법
+for i in img:
+    # 원본 이미지 불러오고 NumPy 배열로 변환
+    opened_img = Image.open(i)
+    image_array = np.array(opened_img)
+
+    # 채널 분리
+    r = image_array[:, :, 0]
+    g = image_array[:, :, 1]
+    b = image_array[:, :, 2]
+
+    # 공식 적용하기 (브로드캐스팅)
+    gray_array = 0.2989 * r + 0.5870 * g + 0.1140 * b
+
+    # 데이터 타입 변환 (아주 중요)
+    # 소수점을 곱했기 때문에 현재 gray_array 안의 숫자들은 소수점(float) 상태
+    # 이미지는 0~255 사이의 정수여야 하므로, 정수형(uint8)으로 변환
+    gray_array = gray_array.astype(np.uint8)
+
+    # 다시 이미지 객체로 만들어서 확인
+    gray_array_img = Image.fromarray(gray_array)
+    gray_array_img.show()
+
+num = 0
+# 그레이 이미지 저장
+for i in img:
+    # 파일 경로(path)를 이용해 이미지를 열고, 'opened_img'라는 변수에 저장. 그레이 이미지로 전환
+    opened_img = Image.open(i)
+    gray_img = opened_img.convert('L')
+    save_path = f'C:/Users/seo/Documents/Git/ue5-story/01-python-onnx/Project_Img/GrayIMG_{num}.jpg'
+    gray_img.save(save_path)
+    num += 1
+  
