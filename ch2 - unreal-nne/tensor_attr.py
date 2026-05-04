@@ -1,0 +1,2 @@
+# attribute : shape, dtype, device
+
