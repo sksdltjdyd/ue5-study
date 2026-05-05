@@ -16,6 +16,7 @@ print(a - b)
 print(a * b)
 print(a / b)
 
+
 print(a.add(b))
 print(a.sub(b))
 print(a.mul(b))
@@ -28,6 +29,7 @@ print(a.add(b))
 print(a)
 print(a.add_(b))
 print(a)
+
 
 # tensor.min()
 # 가장 작은 값을 반환
