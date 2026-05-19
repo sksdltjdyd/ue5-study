@@ -26,3 +26,53 @@
 - 해독기 켜기: 서버가 준 JSON 텍스트를 TJsonReader라는 돋보기로 읽고, FJsonSerializer::Deserialize를 통해 C++ 객체(FJsonObject)로 변환
 - 데이터 쏙쏙 뽑기: 데이터가 배열(Array)이라면 루프를 돌면서 GetStringField("이름")이나 GetNumberField("위치") 함수를 써서 알맹이 데이터만 가져와 내 게임 액터의 위치나 UI에 반영
 ---
+
+> 💡Http 모듈 추가 핵심 개념
+> 
+1. HTTP 헤더(Header): "우리의 정체를 밝히고 요구사항 전달하기"
+- 서버는 하루에도 수만 건의 요청을 받습니다. 이때 헤더 없이 무작정 "데이터 줘!"라고 하면 무시당하기 십상입니다.
+- SetHeader("Content-Type", "application/json"): 서버에게 "우리가 주고받을 데이터 포맷은 JSON이야"라고 명확히 합의하는 과정입니다.
+- SetHeader("User-Agent", "X-UnrealEngine-Agent"): "나는 크롬 브라우저가 아니라 언리얼 엔진이야"라고 신분을 밝히는 것입니다. 공개 API 중에서는 User-Agent가 없으면 악성 봇으로 간주하고 차단하는 곳이 많으므로 습관화하는 것이 좋습니다.
+2. FJsonObject vs FJsonValue: "JSON의 껍데기와 알맹이"
+- 언리얼 C++에서 JSON을 다룰 때 가장 헷갈리는 두 가지 타입입니다.
+- FJsonObject (객체): 중괄호 { } 로 묶인 덩어리입니다. 열쇠(Key)를 주면 자물쇠를 열어 값(Value)을 꺼낼 수 있는 '사물함'이라고 생각하시면 됩니다. (예: GetStringField("name"))
+- FJsonValue (값): 그 사물함 안에 들어있는 '알맹이 하나'입니다. 이 알맹이는 숫자일 수도, 글자일 수도, 심지어 또 다른 사물함(FJsonObject)일 수도 있습니다. 배열(Array) 안에는 항상 이 FJsonValue들이 일렬로 들어있습니다.
+3. 배열(Array) 파싱의 함정 주의 (★가장 중요)
+- 영상에 나오는 강사님의 개인 서버 API와 우리가 테스트할 무료 API(jsonplaceholder)는 구조가 살짝 다릅니다! 이 차이를 아는 것이 진짜 실력입니다.
+- 영상 속 서버 응답: { "users": [ {..}, {..} ] }
+- 제일 바깥이 중괄호 {} 이므로 먼저 FJsonObject로 해독한 뒤, GetArrayField("users")를 써서 안쪽에 있는 배열을 꺼냅니다.
+- 우리가 테스트할 API 응답 (.../users): [ {..}, {..}, {..} ]
+- 제일 바깥이 대괄호 [] 로 시작하는 순수 배열입니다. 이럴 때는 FJsonObject 그릇이 아니라, 처음부터 TArray<TSharedPtr<FJsonValue>> 라는 배열 그릇에 담아 해독해야 합니다.
+---
+
+> 💡Http 모듈 핵심 내장 함수
+> 
+- 편지 봉투를 꾸미고 발송할 때 (IHttpRequest 객체)
+- 우리가 서버에 무언가를 요구할 때(Request) 사용하는 함수들입니다.
+
+1. SetURL(const FString& URL)
+- 역할: 편지가 도착할 목적지 주소를 적습니다.
+- 사용 예: Request->SetURL("https://api.weather.com/...");
+2. SetVerb(const FString& Verb)
+- 역할: 통신의 목적(방식)을 정합니다. 데이터를 가져올 거면 "GET", 데이터를 보낼 거면 "POST"를 씁니다.
+- 사용 예: Request->SetVerb("GET");
+3. SetHeader(const FString& HeaderName, const FString& HeaderValue)
+- 역할: 봉투 겉면에 추가 정보(규칙, 신분증 등)를 적습니다.
+- 사용 예: Request->SetHeader("Content-Type", "application/json"); (우린 JSON으로 대화할 거야!)
+4. SetContentAsString(const FString& ContentString) 🔥 (금요일 핵심 스포일러)
+- 역할: GET(읽기)이 아니라 POST(쓰기) 방식을 쓸 때, 서버에 보낼 내 데이터(예: 로그인 ID/PW)를 편지 본문에 꽉꽉 채워 넣는 함수입니다.
+5. OnProcessRequestComplete().BindUObject(...)
+- 역할: 답장이 도착했을 때 어떤 함수를 실행해서 알림을 받을지(콜백) 연결해 줍니다.
+6. ProcessRequest()
+- 역할: 다 쓴 편지를 우체통에 쏙 넣고 실제로 발송합니다. 이 함수를 안 부르면 통신이 아예 시작되지 않습니다!
+
+2. 서버에서 온 답장을 뜯어볼 때 (IHttpResponse 객체)
+- 서버가 통신을 마치고 우리에게 결과물(Response)을 돌려주었을 때 꺼내 쓰는 함수들입니다.
+1. GetResponseCode()
+- 역할: 서버가 돌려준 상태 번호(HTTP Status Code)를 확인합니다.
+- 사용 예: 200이 나오면 성공, 404가 나오면 주소 틀림(Not Found), 500이 나오면 서버 터짐(서버 에러)을 의미합니다.
+2. GetContentAsString()
+- 역할: 서버가 보내준 데이터의 알맹이(주로 JSON 문자열)를 꺼냅니다. 이걸 꺼내서 우리가 오늘 했던 것처럼 FJsonSerializer로 해독하게 됩니다.
+3. GetHeader(const FString& HeaderName)
+- 역할: 우리가 보낼 때 헤더를 썼던 것처럼, 서버도 우리에게 여러 가지 정보(데이터 용량, 서버 시간 등)를 헤더에 담아 보냅니다. 그중 특정 정보만 쏙 뽑아 읽을 때 씁니다.
+---
