@@ -37,7 +37,7 @@
 					"rest_http_test",
 					"Win64",
 					"Debug",
-					"E:\\02_Work\\rest_http_test\\rest_http_test.uproject",
+					"C:\\Users\\seo\\Documents\\Git\\ue5-story\\ch4 - restapi-http\\UEProject\\rest_http_test.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -54,7 +54,7 @@
 					"rest_http_test",
 					"Win64",
 					"Debug",
-					"E:\\02_Work\\rest_http_test\\rest_http_test.uproject",
+					"C:\\Users\\seo\\Documents\\Git\\ue5-story\\ch4 - restapi-http\\UEProject\\rest_http_test.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -74,7 +74,7 @@
 					"rest_http_test",
 					"Win64",
 					"Debug",
-					"E:\\02_Work\\rest_http_test\\rest_http_test.uproject",
+					"C:\\Users\\seo\\Documents\\Git\\ue5-story\\ch4 - restapi-http\\UEProject\\rest_http_test.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -91,7 +91,7 @@
 					"rest_http_test",
 					"Win64",
 					"DebugGame",
-					"E:\\02_Work\\rest_http_test\\rest_http_test.uproject",
+					"C:\\Users\\seo\\Documents\\Git\\ue5-story\\ch4 - restapi-http\\UEProject\\rest_http_test.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -108,7 +108,7 @@
 					"rest_http_test",
 					"Win64",
 					"DebugGame",
-					"E:\\02_Work\\rest_http_test\\rest_http_test.uproject",
+					"C:\\Users\\seo\\Documents\\Git\\ue5-story\\ch4 - restapi-http\\UEProject\\rest_http_test.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -128,7 +128,7 @@
 					"rest_http_test",
 					"Win64",
 					"DebugGame",
-					"E:\\02_Work\\rest_http_test\\rest_http_test.uproject",
+					"C:\\Users\\seo\\Documents\\Git\\ue5-story\\ch4 - restapi-http\\UEProject\\rest_http_test.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -145,7 +145,7 @@
 					"rest_http_test",
 					"Win64",
 					"Development",
-					"E:\\02_Work\\rest_http_test\\rest_http_test.uproject",
+					"C:\\Users\\seo\\Documents\\Git\\ue5-story\\ch4 - restapi-http\\UEProject\\rest_http_test.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -162,7 +162,7 @@
 					"rest_http_test",
 					"Win64",
 					"Development",
-					"E:\\02_Work\\rest_http_test\\rest_http_test.uproject",
+					"C:\\Users\\seo\\Documents\\Git\\ue5-story\\ch4 - restapi-http\\UEProject\\rest_http_test.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -182,7 +182,7 @@
 					"rest_http_test",
 					"Win64",
 					"Development",
-					"E:\\02_Work\\rest_http_test\\rest_http_test.uproject",
+					"C:\\Users\\seo\\Documents\\Git\\ue5-story\\ch4 - restapi-http\\UEProject\\rest_http_test.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -199,7 +199,7 @@
 					"rest_http_test",
 					"Win64",
 					"Test",
-					"E:\\02_Work\\rest_http_test\\rest_http_test.uproject",
+					"C:\\Users\\seo\\Documents\\Git\\ue5-story\\ch4 - restapi-http\\UEProject\\rest_http_test.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -216,7 +216,7 @@
 					"rest_http_test",
 					"Win64",
 					"Test",
-					"E:\\02_Work\\rest_http_test\\rest_http_test.uproject",
+					"C:\\Users\\seo\\Documents\\Git\\ue5-story\\ch4 - restapi-http\\UEProject\\rest_http_test.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -236,7 +236,7 @@
 					"rest_http_test",
 					"Win64",
 					"Test",
-					"E:\\02_Work\\rest_http_test\\rest_http_test.uproject",
+					"C:\\Users\\seo\\Documents\\Git\\ue5-story\\ch4 - restapi-http\\UEProject\\rest_http_test.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -253,7 +253,7 @@
 					"rest_http_test",
 					"Win64",
 					"Shipping",
-					"E:\\02_Work\\rest_http_test\\rest_http_test.uproject",
+					"C:\\Users\\seo\\Documents\\Git\\ue5-story\\ch4 - restapi-http\\UEProject\\rest_http_test.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -270,7 +270,7 @@
 					"rest_http_test",
 					"Win64",
 					"Shipping",
-					"E:\\02_Work\\rest_http_test\\rest_http_test.uproject",
+					"C:\\Users\\seo\\Documents\\Git\\ue5-story\\ch4 - restapi-http\\UEProject\\rest_http_test.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -290,7 +290,7 @@
 					"rest_http_test",
 					"Win64",
 					"Shipping",
-					"E:\\02_Work\\rest_http_test\\rest_http_test.uproject",
+					"C:\\Users\\seo\\Documents\\Git\\ue5-story\\ch4 - restapi-http\\UEProject\\rest_http_test.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -307,7 +307,7 @@
 					"rest_http_testEditor",
 					"Win64",
 					"Debug",
-					"E:\\02_Work\\rest_http_test\\rest_http_test.uproject",
+					"C:\\Users\\seo\\Documents\\Git\\ue5-story\\ch4 - restapi-http\\UEProject\\rest_http_test.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -324,7 +324,7 @@
 					"rest_http_testEditor",
 					"Win64",
 					"Debug",
-					"E:\\02_Work\\rest_http_test\\rest_http_test.uproject",
+					"C:\\Users\\seo\\Documents\\Git\\ue5-story\\ch4 - restapi-http\\UEProject\\rest_http_test.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -344,7 +344,7 @@
 					"rest_http_testEditor",
 					"Win64",
 					"Debug",
-					"E:\\02_Work\\rest_http_test\\rest_http_test.uproject",
+					"C:\\Users\\seo\\Documents\\Git\\ue5-story\\ch4 - restapi-http\\UEProject\\rest_http_test.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -361,7 +361,7 @@
 					"rest_http_testEditor",
 					"Win64",
 					"DebugGame",
-					"E:\\02_Work\\rest_http_test\\rest_http_test.uproject",
+					"C:\\Users\\seo\\Documents\\Git\\ue5-story\\ch4 - restapi-http\\UEProject\\rest_http_test.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -378,7 +378,7 @@
 					"rest_http_testEditor",
 					"Win64",
 					"DebugGame",
-					"E:\\02_Work\\rest_http_test\\rest_http_test.uproject",
+					"C:\\Users\\seo\\Documents\\Git\\ue5-story\\ch4 - restapi-http\\UEProject\\rest_http_test.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -398,7 +398,7 @@
 					"rest_http_testEditor",
 					"Win64",
 					"DebugGame",
-					"E:\\02_Work\\rest_http_test\\rest_http_test.uproject",
+					"C:\\Users\\seo\\Documents\\Git\\ue5-story\\ch4 - restapi-http\\UEProject\\rest_http_test.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -415,7 +415,7 @@
 					"rest_http_testEditor",
 					"Win64",
 					"Development",
-					"E:\\02_Work\\rest_http_test\\rest_http_test.uproject",
+					"C:\\Users\\seo\\Documents\\Git\\ue5-story\\ch4 - restapi-http\\UEProject\\rest_http_test.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -432,7 +432,7 @@
 					"rest_http_testEditor",
 					"Win64",
 					"Development",
-					"E:\\02_Work\\rest_http_test\\rest_http_test.uproject",
+					"C:\\Users\\seo\\Documents\\Git\\ue5-story\\ch4 - restapi-http\\UEProject\\rest_http_test.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -452,7 +452,7 @@
 					"rest_http_testEditor",
 					"Win64",
 					"Development",
-					"E:\\02_Work\\rest_http_test\\rest_http_test.uproject",
+					"C:\\Users\\seo\\Documents\\Git\\ue5-story\\ch4 - restapi-http\\UEProject\\rest_http_test.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -469,7 +469,7 @@
 			{
 				"name": "Launch rest_http_test (Debug)",
 				"request": "launch",
-				"program": "E:\\02_Work\\rest_http_test\\Binaries\\Win64\\UnrealGame-Win64-Debug.exe",
+				"program": "C:\\Users\\seo\\Documents\\Git\\ue5-story\\ch4 - restapi-http\\UEProject\\Binaries\\Win64\\UnrealGame-Win64-Debug.exe",
 				"preLaunchTask": "rest_http_test Win64 Debug Build",
 				"args": [
 				],
@@ -485,7 +485,7 @@
 			{
 				"name": "Launch rest_http_test (DebugGame)",
 				"request": "launch",
-				"program": "E:\\02_Work\\rest_http_test\\Binaries\\Win64\\UnrealGame-Win64-DebugGame.exe",
+				"program": "C:\\Users\\seo\\Documents\\Git\\ue5-story\\ch4 - restapi-http\\UEProject\\Binaries\\Win64\\UnrealGame-Win64-DebugGame.exe",
 				"preLaunchTask": "rest_http_test Win64 DebugGame Build",
 				"args": [
 				],
@@ -501,7 +501,7 @@
 			{
 				"name": "Launch rest_http_test (Development)",
 				"request": "launch",
-				"program": "E:\\02_Work\\rest_http_test\\Binaries\\Win64\\UnrealGame.exe",
+				"program": "C:\\Users\\seo\\Documents\\Git\\ue5-story\\ch4 - restapi-http\\UEProject\\Binaries\\Win64\\UnrealGame.exe",
 				"preLaunchTask": "rest_http_test Win64 Development Build",
 				"args": [
 				],
@@ -517,7 +517,7 @@
 			{
 				"name": "Launch rest_http_test (Test)",
 				"request": "launch",
-				"program": "E:\\02_Work\\rest_http_test\\Binaries\\Win64\\UnrealGame-Win64-Test.exe",
+				"program": "C:\\Users\\seo\\Documents\\Git\\ue5-story\\ch4 - restapi-http\\UEProject\\Binaries\\Win64\\UnrealGame-Win64-Test.exe",
 				"preLaunchTask": "rest_http_test Win64 Test Build",
 				"args": [
 				],
@@ -533,7 +533,7 @@
 			{
 				"name": "Launch rest_http_test (Shipping)",
 				"request": "launch",
-				"program": "E:\\02_Work\\rest_http_test\\Binaries\\Win64\\UnrealGame-Win64-Shipping.exe",
+				"program": "C:\\Users\\seo\\Documents\\Git\\ue5-story\\ch4 - restapi-http\\UEProject\\Binaries\\Win64\\UnrealGame-Win64-Shipping.exe",
 				"preLaunchTask": "rest_http_test Win64 Shipping Build",
 				"args": [
 				],
@@ -552,7 +552,7 @@
 				"program": "C:\\Program Files\\Epic Games\\UE_5.7\\Engine\\Binaries\\Win64\\UnrealEditor-Win64-Debug.exe",
 				"preLaunchTask": "rest_http_testEditor Win64 Debug Build",
 				"args": [
-					"E:\\02_Work\\rest_http_test\\rest_http_test.uproject"
+					"C:\\Users\\seo\\Documents\\Git\\ue5-story\\ch4 - restapi-http\\UEProject\\rest_http_test.uproject"
 				],
 				"cwd": "C:\\Program Files\\Epic Games\\UE_5.7",
 				"stopAtEntry": false,
@@ -569,7 +569,7 @@
 				"program": "C:\\Program Files\\Epic Games\\UE_5.7\\Engine\\Binaries\\Win64\\UnrealEditor-Win64-DebugGame.exe",
 				"preLaunchTask": "rest_http_testEditor Win64 DebugGame Build",
 				"args": [
-					"E:\\02_Work\\rest_http_test\\rest_http_test.uproject"
+					"C:\\Users\\seo\\Documents\\Git\\ue5-story\\ch4 - restapi-http\\UEProject\\rest_http_test.uproject"
 				],
 				"cwd": "C:\\Program Files\\Epic Games\\UE_5.7",
 				"stopAtEntry": false,
@@ -586,7 +586,7 @@
 				"program": "C:\\Program Files\\Epic Games\\UE_5.7\\Engine\\Binaries\\Win64\\UnrealEditor.exe",
 				"preLaunchTask": "rest_http_testEditor Win64 Development Build",
 				"args": [
-					"E:\\02_Work\\rest_http_test\\rest_http_test.uproject"
+					"C:\\Users\\seo\\Documents\\Git\\ue5-story\\ch4 - restapi-http\\UEProject\\rest_http_test.uproject"
 				],
 				"cwd": "C:\\Program Files\\Epic Games\\UE_5.7",
 				"stopAtEntry": false,
@@ -606,7 +606,7 @@
 				"args": [
 					"-projectfiles",
 					"-vscode",
-					"-project=E:\\02_Work\\rest_http_test\\rest_http_test.uproject",
+					"-project=C:\\Users\\seo\\Documents\\Git\\ue5-story\\ch4 - restapi-http\\UEProject\\rest_http_test.uproject",
 					"-game",
 					"-engine",
 					"-dotnet"

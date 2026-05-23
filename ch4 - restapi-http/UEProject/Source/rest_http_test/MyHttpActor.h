@@ -17,7 +17,11 @@ public:
 protected:
 	virtual void BeginPlay() override;
 
-public:	
+public:
+	// C++에서 호출하면 블루프린트에서 실행하는 매크로
+	UFUNCTION(BlueprintImplementableEvent, Category="Weather API")
+	void OnWeatherDataReady(const FString& WeatherInfoText);
+
 	// 1. API에 데이터를 달라고 요청하는 함수
 	void RequestUserData();
 

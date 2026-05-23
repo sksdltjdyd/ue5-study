@@ -215,6 +215,12 @@ void AMyHttpActor::OnWeatherInfoReceived(FHttpRequestPtr Request, FHttpResponseP
 				double Temperature = (*CurrentWeatherObj)->GetNumberField(TEXT("temperature"));
 				double WindSpeed = (*CurrentWeatherObj)->GetNumberField(TEXT("windspeed"));
 
+				// 1. 데이터를 문자열로 조립
+				FString ResultMsg = FString::Printf(TEXT("현재 서울 날씨 정보\n기온: %.1f 도 (섭씨)\n풍속: %.1f km/h"), Temperature, WindSpeed);
+
+				//2. 블루프린트로 데이터 토스(언리얼 에디터에서 알림 받기)
+				OnWeatherDataReady(ResultMsg);
+
 				UE_LOG(LogTemp, Warning, TEXT("현재 서울 날씨 정보"));
 				UE_LOG(LogTemp, Warning, TEXT("기온: %.1f 도 (섭씨)"), Temperature);
 				UE_LOG(LogTemp, Warning, TEXT("풍속: %.1f km/h"), WindSpeed);
