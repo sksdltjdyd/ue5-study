@@ -192,12 +192,18 @@ void AMyHttpActor::RequestWeatherInfo(){
 	Request->SetHeader(TEXT("User-Agent"), TEXT("X-UnrealEngine-Agent"));
 	Request->SetHeader(TEXT("Content-Type"), TEXT("application/json"));
 
+	// 통신을 요청하기 직전에 블루프린트에게 신호를 보냄
+	OnLoadingStateChanged(true); // 로딩 시작 신호
+
 	Request->ProcessRequest();
 }
 
 // 날씨정보 API 응답 처리 함수
 void AMyHttpActor::OnWeatherInfoReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
 {
+	// 1: 답장이 도착했으니 (성공이든 에러든) 무조건 가장 먼저 로딩 UI부터 끈다
+	OnLoadingStateChanged(false); 
+
 	if (bWasSuccessful && Response.IsValid() && EHttpResponseCodes::IsOk(Response->GetResponseCode()))
 	{
 		FString ResponseBody = Response->GetContentAsString();
@@ -205,7 +211,8 @@ void AMyHttpActor::OnWeatherInfoReceived(FHttpRequestPtr Request, FHttpResponseP
 		TSharedPtr<FJsonObject> JsonObject;
 		TSharedRef<TJsonReader<>> Reader = TJsonReaderFactory<>::Create(ResponseBody);
 
-		if (FJsonSerializer::Deserialize(Reader, JsonObject))
+		// 2: 불필요한 콤마(,) 제거
+		if (FJsonSerializer::Deserialize(Reader, JsonObject)) 
 		{
 			// "current_weather"라는 이름의 내부 사물함(객체)을 통째로 꺼냅니다.
 			const TSharedPtr<FJsonObject>* CurrentWeatherObj;
@@ -218,7 +225,7 @@ void AMyHttpActor::OnWeatherInfoReceived(FHttpRequestPtr Request, FHttpResponseP
 				// 1. 데이터를 문자열로 조립
 				FString ResultMsg = FString::Printf(TEXT("현재 서울 날씨 정보\n기온: %.1f 도 (섭씨)\n풍속: %.1f km/h"), Temperature, WindSpeed);
 
-				//2. 블루프린트로 데이터 토스(언리얼 에디터에서 알림 받기)
+				// 2. 블루프린트로 데이터 토스(언리얼 에디터에서 알림 받기)
 				OnWeatherDataReady(ResultMsg);
 
 				UE_LOG(LogTemp, Warning, TEXT("현재 서울 날씨 정보"));
@@ -226,10 +233,15 @@ void AMyHttpActor::OnWeatherInfoReceived(FHttpRequestPtr Request, FHttpResponseP
 				UE_LOG(LogTemp, Warning, TEXT("풍속: %.1f km/h"), WindSpeed);
 			}
 		}
+		
 	}
 	else
 	{
 		UE_LOG(LogTemp, Error, TEXT("날씨 정보 가져오기 실패!"));
+		
+		// 3: 통신 실패 시 UI에도 실패 메시지를 던져줍니다.
+		FString ErrorMsg = TEXT("⚠️ 날씨 정보를 가져오는 데 실패했습니다.");
+		OnWeatherDataReady(ErrorMsg);
 	}
 }
 

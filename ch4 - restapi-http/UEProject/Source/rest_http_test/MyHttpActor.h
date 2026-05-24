@@ -22,6 +22,10 @@ public:
 	UFUNCTION(BlueprintImplementableEvent, Category="Weather API")
 	void OnWeatherDataReady(const FString& WeatherInfoText);
 
+	// 로딩 UI를 켜고 끄라고 지시하는 이벤트
+	UFUNCTION(BlueprintImplementableEvent, Category="Weather API")
+	void OnLoadingStateChanged(bool bIsLoading);
+
 	// 1. API에 데이터를 달라고 요청하는 함수
 	void RequestUserData();
 
