@@ -22,6 +22,31 @@ void AMyWebSocketActor::BeginPlay()
 
 }
 
+// JSON 데이터 보내는 함수
+void AMyWebSocketActor::SendJsonData()
+{
+    if (!WebSocket.IsValid() || !WebSocket->IsConnected()) return;
+
+    // 1. JSON 바구니 만들기 (스마트 포인터 사용)
+    TSharedPtr<FJsonObject> JsonObject = MakeShareable(new FJsonObject());
+
+    // 2. 바구니에 데이터 담기 (Key-Value)
+    JsonObject->SetStringField(TEXT("Action"), TEXT("Move"));
+    JsonObject->SetNumberField(TEXT("TargetX"), 1500.5f);
+
+    // 3. 번역가(Writer)와 문자열 버퍼 준비
+    FString OutputString;
+    TSharedRef<TJsonWriter<>> Writer = TJsonWriterFactory<>::Create(&OutputString);
+
+    // 4. 공장장(Serializer)을 통해 바구니를 문자열로 직렬화
+    if (FJsonSerializer::Serialize(JsonObject.ToSharedRef(), Writer))
+    {
+        // 5. 완성된 JSON 문자열을 웹소켓으로 발송!
+        WebSocket->Send(OutputString);
+        UE_LOG(LogTemp, Warning, TEXT("JSON 전송 완료: %s"), *OutputString);
+    }
+}
+
 void AMyWebSocketActor::InitializeWebSocket()
 {
    // 1. 웹소켓 모듈이 로드되어 있는지 확인하고 강제 로드
@@ -56,11 +81,37 @@ void AMyWebSocketActor::InitializeWebSocket()
         TriggerReconnection();
     });
 
-    // [오늘 추가] 서버로부터 메시지 수신 이벤트
+    /*이전 버전
+    [오늘 추가] 서버로부터 메시지 수신 이벤트
     WebSocket->OnMessage().AddLambda([](const FString& MessageString)
     {
-        // 서버가 보낸 텍스트를 로그에 출력합니다. (내일은 여기서 JSON을 파싱합니다)
+        서버가 보낸 텍스트를 로그에 출력합니다. (내일은 여기서 JSON을 파싱합니다)
         UE_LOG(LogTemp, Log, TEXT("서버로부터 메시지 수신: %s"), *MessageString);
+    });
+    */
+
+    // [어제 코드 수정] 서버로부터 메시지 수신 이벤트
+    WebSocket->OnMessage().AddLambda([](const FString& MessageString)
+    {
+        UE_LOG(LogTemp, Log, TEXT("원본 수신 데이터: %s"), *MessageString);
+
+        // 1. 빈 바구니와 번역가(Reader) 준비
+        TSharedPtr<FJsonObject> JsonObject;
+        TSharedRef<TJsonReader<>> Reader = TJsonReaderFactory<>::Create(MessageString);
+
+        // 2. 공장장(Serializer)을 통해 텍스트를 JSON 바구니로 역직렬화
+        if (FJsonSerializer::Deserialize(Reader, JsonObject) && JsonObject.IsValid())
+        {
+            // 3. 바구니에서 원하는 데이터를 Key값으로 쏙쏙 뽑아내기
+            FString ReceivedAction = JsonObject->GetStringField(TEXT("Action"));
+            float ReceivedX = JsonObject->GetNumberField(TEXT("TargetX"));
+
+            UE_LOG(LogTemp, Warning, TEXT("해석 성공! Action: %s, X좌표: %f"), *ReceivedAction, ReceivedX);
+        }
+        else
+        {
+            UE_LOG(LogTemp, Error, TEXT("JSON 파싱 실패! 데이터 형식을 확인하세요."));
+        }
     });
 
     // [오늘 추가] 연결 종료 이벤트

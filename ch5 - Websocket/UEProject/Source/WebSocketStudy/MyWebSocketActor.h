@@ -16,6 +16,9 @@ public:
 	virtual void BeginPlay() override;
 	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 
+	// SendJsonData 함수를 선언
+	void SendJsonData();
+
 private:
 	// 웹소켓 객체
 	// 객체를 안전하게 보관할 스마트 포인터
