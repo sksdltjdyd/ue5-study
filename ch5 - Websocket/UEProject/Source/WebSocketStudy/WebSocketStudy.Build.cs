@@ -19,8 +19,9 @@ public class WebSocketStudy : ModuleRules
 			"GameplayStateTreeModule",
 			"UMG",
 			"Slate",
+			"HTTP",
 			"WebSockets", // 웹소켓 통신 핵심 모듈
-			"JSON", // JSON 데이터 처리 모듈
+			"Json", // JSON 데이터 처리 모듈
 			"JsonUtilities" // C++에서 JSON 직렬화/역직렬화 지원 모듈
 		});
 
