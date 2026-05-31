@@ -1,0 +1,11 @@
+# Python 무시 목록
+.venv/
+__pycache__/
+
+# (선택) Unreal Engine 찌꺼기 파일 무시 목록
+UEProject/Binaries/
+UEProject/Intermediate/
+UEProject/Saved/
+UEProject/DerivedDataCache/
+UEProject/*.sln
+UEProject/.vs/
