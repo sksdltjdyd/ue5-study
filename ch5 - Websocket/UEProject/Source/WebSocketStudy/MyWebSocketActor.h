@@ -39,6 +39,13 @@ private:
 protected:
 	// Sets default values for this actor's properties
 	AMyWebSocketActor();
+	// 눈에 보일 큐브나 구체 메쉬
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+	UStaticMeshComponent* MeshComp;
+
+	// 런타임에 색상을 변경하기 위한 머티리얼 인스턴스
+	UPROPERTY()
+	UMaterialInstanceDynamic* DynamicMat;
 
 public:	
 	// Called every frame

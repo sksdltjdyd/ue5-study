@@ -4,13 +4,18 @@
 #include "MyWebSocketActor.h"
 #include "WebSocketsModule.h" // 웹소켓 모듈 사용을 위해 필수 포함
 #include "TimerManager.h" // 타이머 사용을 위해 필수 포함
+#include "Serialization/JsonSerializer.h" // JSON 파싱용
 
 // Sets default values
 AMyWebSocketActor::AMyWebSocketActor()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bCanEverTick = false;
     CurrentRetryCount = 0; // 재시도 횟수 초기화
+
+    // mesh 컴포넌트 생성 및 루트로 설정
+    MeshComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MeshComp"));
+    RootComponent = MeshComp;
 
 }
 
@@ -18,6 +23,14 @@ AMyWebSocketActor::AMyWebSocketActor()
 void AMyWebSocketActor::BeginPlay()
 {
 	Super::BeginPlay();
+   
+
+    // 메쉬에 적용된 0번째 머티리얼의 인스턴스 동적 복사본을 만들어서 저장
+    if (MeshComp->GetMaterial(0) != nullptr)
+    {
+        DynamicMat = MeshComp->CreateAndSetMaterialInstanceDynamic(0);
+    }
+
     InitializeWebSocket(); // 여기서 호출
 
 }
@@ -91,6 +104,7 @@ void AMyWebSocketActor::InitializeWebSocket()
     */
 
     // [어제 코드 수정] 서버로부터 메시지 수신 이벤트
+    /*기존 코드
     WebSocket->OnMessage().AddLambda([](const FString& MessageString)
     {
         UE_LOG(LogTemp, Log, TEXT("원본 수신 데이터: %s"), *MessageString);
@@ -111,6 +125,41 @@ void AMyWebSocketActor::InitializeWebSocket()
         else
         {
             UE_LOG(LogTemp, Error, TEXT("JSON 파싱 실패! 데이터 형식을 확인하세요."));
+        }
+    });
+    */
+   
+    // [오늘 추가] 서버로부터 메시지 수신 이벤트 (액터 위치와 색상 업데이트 버전)
+    WebSocket->OnMessage().AddLambda([this](const FString& MessageString)
+    {
+        // 1. JSON 문자열 파싱 준비
+        TSharedPtr<FJsonObject> JsonObject;
+        TSharedRef<TJsonReader<>> Reader = TJsonReaderFactory<>::Create(MessageString);
+
+        if (FJsonSerializer::Deserialize(Reader, JsonObject) && JsonObject.IsValid())
+        {
+            // 2. JSON에서 좌표(X, Y, Z) 추출
+            float TargetX = JsonObject->GetNumberField(TEXT("X"));
+            float TargetY = JsonObject->GetNumberField(TEXT("Y"));
+            float TargetZ = JsonObject->GetNumberField(TEXT("Z"));
+
+            // 액터 이동!
+            FVector NewLocation(TargetX, TargetY, TargetZ);
+            SetActorLocation(NewLocation);
+
+            // 3. JSON에서 색상(R, G, B) 추출
+            if (DynamicMat != nullptr)
+            {
+                float ColorR = JsonObject->GetNumberField(TEXT("R"));
+                float ColorG = JsonObject->GetNumberField(TEXT("G"));
+                float ColorB = JsonObject->GetNumberField(TEXT("B"));
+
+                // 머티리얼의 색상 파라미터(이름이 "BaseColor"라고 가정) 변경!
+                FLinearColor NewColor(ColorR, ColorG, ColorB, 1.0f);
+                DynamicMat->SetVectorParameterValue(TEXT("BaseColor"), NewColor);
+            }
+            
+            UE_LOG(LogTemp, Warning, TEXT("액터 위치 및 색상 업데이트 완료!"));
         }
     });
 
