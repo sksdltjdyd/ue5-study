@@ -101,3 +101,14 @@
 - 운 좋게 게임이 안 뻗었더라도 문제가 생깁니다. 웹소켓으로 캐릭터가 최신 위치로 열심히 이동하고 있는데, 뒤늦게 HTTP가 도착해서 "초기 위치로 세팅해!"라고 명령하면, 기껏 이동한 캐릭터가 3초 전 과거 위치로 순간이동(고무줄 현상) 해버리게 됩니다.
 
 - 이 때문에 통신을 섞어 쓸 때는 반드시 "HTTP로 무거운 초기 판(맵, 캐릭터 스폰)을 완벽하게 깔아둔다 -> 그 직후에 WebSocket 스위치를 켜서 실시간 움직임을 덧입힌다"라는 엄격한 순서를 지켜야 하는 것입니다!
+---
+
+> 💡실시간 주고받기
+>
+1. 트랜스폼(Transform) 갱신
+- 개념: 언리얼에서 3D 공간에 존재하는 모든 액터는 위치(Location), 회전(Rotation), 크기(Scale) 정보를 가집니다.
+- 핵심 함수: SetActorLocation(FVector(X, Y, Z))
+- 데이터 흐름: JSON 수신 ➔ X, Y, Z 숫자 추출 ➔ FVector 객체로 포장 ➔ SetActorLocation으로 액터 순간이동!
+2. 머티리얼 인스턴스 다이내믹 (MID, Dynamic Material Instance)
+- 개념: 언리얼에서 액터의 색상이나 재질을 게임 실행(Runtime) 중에 실시간으로 바꾸려면 원본 머티리얼을 직접 건드려서는 안 됩니다. 대신 동적으로 변하는 복사본(MID)을 만들어서 옷을 갈아입혀야 합니다.
+- 핵심 함수: CreateAndSetMaterialInstanceDynamic()으로 복사본 생성 ➔ SetVectorParameterValue(TEXT("파라미터이름"), FLinearColor)로 색상 주입!
