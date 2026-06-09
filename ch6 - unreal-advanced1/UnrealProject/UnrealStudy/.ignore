@@ -1,5 +1,18 @@
-/.vs
-/.vscode
-/Content
-/Intermediate
-/Saved
+# Unreal Engine Build and Cache
+Binaries/
+DerivedDataCache/
+Intermediate/
+Saved/
+
+# Visual Studio / VS Code
+.vs/
+.vscode/
+.idea/
+*.sln
+*.suo
+*.code-workspace
+*.db
+
+# OS Generated
+.DS_Store
+Thumbs.db

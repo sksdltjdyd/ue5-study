@@ -11,7 +11,8 @@ class UCapsuleComponent; // 캡슐 컴포넌트 클래스 선언
 class USkeletalMeshComponent; // 스켈레탈 메시 컴포넌트 클래스 선언
 class UInputMappingContext; // 입력 매핑 컨텍스트 클래스 선언
 class UInputAction; // 입력 액션 클래스 선언
-
+class USpringArmComponent; // 스프링 암 컴포넌트 클래스 선언
+class UCameraComponent; // 카메라 컴포넌트 클래스 선언
 UCLASS()
 class UNREALSTUDY_API ABird : public APawn
 {
@@ -35,8 +36,13 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
 	UInputAction* MovedAction;
 
+	// 카메라 움직임 입력 액션
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
+	UInputAction* LookAction;
+
 	// 입력 액션에 대한 처리 함수 선언
 	void Move(const FInputActionValue& Value);
+	void Look(const FInputActionValue& Value);
 
 private:
 	// 캡슐 컴포넌트 선언
@@ -46,4 +52,12 @@ private:
 	// 스켈레탈 메시 컴포넌트 선언
 	UPROPERTY(VisibleAnywhere)
 	USkeletalMeshComponent* BirdMesh;
+
+	// 스프링 암 컴포넌트 선언
+	UPROPERTY(VisibleAnywhere)
+	USpringArmComponent* CameraBoom; // 스프링 암 컴포넌트 선언
+	
+	// 카메라 컴포넌트 선언
+	UPROPERTY(VisibleAnywhere)
+	UCameraComponent* ViewCamera; // 카메라 컴포넌트 선언
 };
