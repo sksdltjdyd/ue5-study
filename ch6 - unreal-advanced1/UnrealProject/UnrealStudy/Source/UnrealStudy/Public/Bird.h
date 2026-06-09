@@ -40,9 +40,14 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
 	UInputAction* LookAction;
 
+	// 회전 입력 액션
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
+	UInputAction* RotateAction;
+
 	// 입력 액션에 대한 처리 함수 선언
 	void Move(const FInputActionValue& Value);
 	void Look(const FInputActionValue& Value);
+	void Rotate(const FInputActionValue& Value);
 
 private:
 	// 캡슐 컴포넌트 선언

@@ -108,6 +108,31 @@ void ABird::Look(const FInputActionValue& Value)
 	
 }
 
+// Rotate 액션에 대한 처리 함수 구현
+void ABird::Rotate(const FInputActionValue& Value)
+{
+	// 입력 액션에서 float 값을 가져와서 회전에 사용
+	const float RotateValue = Value.Get<float>();
+	if (Controller != nullptr)
+	{
+		// 1프레임당 회전하는 속도
+		float RotationSpeed = 3.0f;
+
+		// FRotator의 인자는 (Pitch-Y축, Yaw-Z축, Roll-X축) 순서
+        // 좌우 턴을 원하시므로 두 번째 인자인 Yaw에 값을 넣어줌
+        FRotator DeltaRotation(0.f, 0.f, RotateValue * RotationSpeed);
+
+		// 액터가 바라보는 방향 추가 회전
+		AddActorLocalRotation(DeltaRotation);
+	}
+	
+	// 로그 출력을 통해 입력이 제대로 처리되고 있는지 확인
+	if (RotateValue != 0.0f)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Rotate Action Triggered: %s"), *Value.ToString());
+	}
+}
+
 void ABird::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
@@ -138,6 +163,8 @@ void ABird::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 		EnhancedInputComponent->BindAction(MovedAction, ETriggerEvent::Triggered, this, &ABird::Move);
 		// Look 액션과 처리 함수를 바인딩하여 카메라 회전을 처리할 수 있도록 설정
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ABird::Look);
+		// Rotate 액션과 처리 함수를 바인딩하여 회전을 처리할 수 있도록 설정
+		EnhancedInputComponent->BindAction(RotateAction, ETriggerEvent::Triggered, this, &ABird::Rotate);
 	}
 	//PlayerInputComponent->BindAxis(FName("MoveForward"), this, &ABird::MoveForward);
 }
