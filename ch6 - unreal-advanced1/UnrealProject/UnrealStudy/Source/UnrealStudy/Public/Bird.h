@@ -50,6 +50,7 @@ protected:
 	void Rotate(const FInputActionValue& Value);
 
 private:
+
 	// 캡슐 컴포넌트 선언
 	UPROPERTY(VisibleAnywhere)
 	UCapsuleComponent* Capsule;
