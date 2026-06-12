@@ -18,7 +18,8 @@ public class UnrealStudy : ModuleRules
 			"StateTreeModule",
 			"GameplayStateTreeModule",
 			"UMG",
-			"Slate"
+			"Slate",
+			"HairStrandsCore"
 		});
 
 		PrivateDependencyModuleNames.AddRange(new string[] { });

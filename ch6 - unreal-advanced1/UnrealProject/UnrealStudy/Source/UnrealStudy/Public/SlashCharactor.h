@@ -11,6 +11,7 @@ class UInputMappingContext; // 입력 매핑 컨텍스트 클래스 선언
 class UInputAction; // 입력 액션 클래스 선언
 class USpringArmComponent; // 스프링 암 컴포넌트 클래스 선언
 class UCameraComponent; // 카메라 컴포넌트 클래스 선언
+class UGroomComponent; // 그룸 컴포넌트 클래스 선언
 
 UCLASS()
 class UNREALSTUDY_API ASlashCharactor : public ACharacter
@@ -53,5 +54,13 @@ private:
 	// 카메라 컴포넌트 선언
 	UPROPERTY(VisibleAnywhere)
 	UCameraComponent* ViewCamera; // 카메라 컴포넌트 선언
+	
+	// 머리 카락 컴포넌트 선언
+	UPROPERTY(VisibleAnywhere, Category = "Hair")
+	UGroomComponent* Hair;
+
+	// 눈썹 카락 컴포넌트 선언
+	UPROPERTY(VisibleAnywhere, Category = "Hair")
+	UGroomComponent* Eyebrows;
 };
 

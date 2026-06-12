@@ -8,6 +8,8 @@
 #include "GameFramework/PlayerController.h" // 플레이어 컨트롤러 헤더 추가
 #include "Camera/CameraComponent.h" // 카메라 컴포넌트 헤더 추가
 #include "GameFramework/SpringArmComponent.h" // 스프링 암 컴포넌트 헤더 추가
+#include "GameFramework/CharacterMovementComponent.h" //캐릭터 무브먼트 활용
+#include "GroomComponent.h"
 
 ASlashCharactor::ASlashCharactor()
 {
@@ -24,6 +26,21 @@ ASlashCharactor::ASlashCharactor()
 	ViewCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("ViewCamera"));
 	ViewCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName); // 스프링 암에 카메라 부착
 
+	bUseControllerRotationPitch = false;
+	bUseControllerRotationYaw = false;
+	bUseControllerRotationRoll = false;
+
+	GetCharacterMovement()->bOrientRotationToMovement = true;
+	GetCharacterMovement()->RotationRate = FRotator(0.f, 400.f, 0.f);
+
+	// 머리카락을 메시에 붙이기
+	Hair = CreateDefaultSubobject<UGroomComponent>(TEXT("Hair"));
+	Hair->SetupAttachment(GetMesh());
+	Hair->SetupAttachment(GetMesh(), FName("head"));
+
+	Eyebrows = CreateDefaultSubobject<UGroomComponent>(TEXT("Eyebrows"));
+	Eyebrows->SetupAttachment(GetMesh());
+	Eyebrows->SetupAttachment(GetMesh(), FName("head"));
 }
 
 void ASlashCharactor::BeginPlay()
@@ -51,14 +68,18 @@ void ASlashCharactor::Movement(const FInputActionValue& Value)
 	const FVector2D MovementVector = Value.Get<FVector2D>();
 	const FVector Forward = GetActorForwardVector();
 	const FVector Right = GetActorRightVector();
+	const FRotator ControlRotation = GetControlRotation();
+	const FRotator YawRotation(0.f, ControlRotation.Yaw, 0.f);
+	const FVector DirectionForward = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
+	const FVector DirectionRight = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
 
 	if (Controller != nullptr)
     {
         // 이동 컴포넌트에게 해당 방향으로 움직이라고 명령
-        AddMovementInput(Forward, MovementVector.Y);
+        AddMovementInput(DirectionForward, MovementVector.Y);
 
 		// 이동 컴포넌트에게 해당 방향으로 움직이라고 명령
-        AddMovementInput(Right, MovementVector.X);
+        AddMovementInput(DirectionRight, MovementVector.X);
     }
 }
 
