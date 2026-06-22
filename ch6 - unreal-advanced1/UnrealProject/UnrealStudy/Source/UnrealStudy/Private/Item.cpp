@@ -3,6 +3,7 @@
 
 #include "Item.h"
 #include "UnrealStudy/DebugMacros.h"
+#include "Components/SphereComponent.h" // 구 컴포넌트를 사용하기 위해 헤더 파일 불러옴
 
 // Sets default values
 AItem::AItem() 
@@ -13,6 +14,9 @@ AItem::AItem()
 	ItemMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("ItemMeshComponent"));
 	RootComponent = ItemMesh; // 생성된 ItemMesh를 액터의 루트 컴포넌트로 설정
 	
+	// 구 컴포넌트를 생성 후, root에 붙임
+	Sphere = CreateDefaultSubobject<USphereComponent>(TEXT("Sphere"));
+	Sphere -> SetupAttachment(GetRootComponent());
 }
 
 void AItem::BeginPlay()
@@ -64,6 +68,9 @@ void AItem::BeginPlay()
 	FVector Location = GetActorLocation();
 	FVector Forward = GetActorForwardVector();
 	FColor Color = FColor::Red;
+
+	Sphere -> OnComponentBeginOverlap.AddDynamic(this, &AItem::OnSphereOverlap);
+	Sphere -> OnComponentEndOverlap.AddDynamic(this, &AItem::OnSphereEndOverlap);
 }
 
 float AItem::TransformSin(float Value)
@@ -74,6 +81,24 @@ float AItem::TransformSin(float Value)
 float AItem::TransformRotation(float Value)
 {
 	return rotationSpeed * Value;
+}
+
+void AItem::OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	const FString OtherActorName = OtherActor -> GetName();
+	if(GEngine)
+	{
+		GEngine->AddOnScreenDebugMessage(1, 30.f, FColor::Red, OtherActorName);
+	}
+}
+
+void AItem::OnSphereEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
+{
+	const FString OtherActorName = FString("Ending Overlap With: ") + OtherActor -> GetName();
+	if(GEngine)
+	{
+		GEngine->AddOnScreenDebugMessage(1, 30.f, FColor::Green, OtherActorName);
+	}
 }
 
 void AItem::Tick(float DeltaTime)

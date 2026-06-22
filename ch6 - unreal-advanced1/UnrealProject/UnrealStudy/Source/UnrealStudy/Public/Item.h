@@ -6,6 +6,8 @@
 #include "GameFramework/Actor.h"
 #include "Item.generated.h"
 
+class USphereComponent; // 구 컴포넌트 클래스 설정
+
 UCLASS()
 class UNREALSTUDY_API AItem : public AActor
 {
@@ -34,6 +36,10 @@ protected:
 
 	template<typename T>
 	T Avg(T First, T Second);
+	
+	virtual void OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+	virtual void OnSphereEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
+	
 private:
 	// RunningTime은 액터가 시작된 이후로 경과된 시간을 추적하는 변수로 Tick 함수에서 DeltaTime을 더하여 업데이트
 	// 블루프린트에서 편집할 필요가 없으므로 UPROPERTY 매크로를 사용하여 VisibleAnywhere로 설정
@@ -45,6 +51,10 @@ private:
 	// Category는 "Item Properties"로 설정하여 블루프린트에서 관련 변수
 	UPROPERTY(VisibleAnywhere, Category = "Item Properties")
 	UStaticMeshComponent* ItemMesh;
+
+	// 구체의 콜리전 컴포넌트 설정
+	UPROPERTY(VisibleAnywhere, Category = "Item Properties")
+	USphereComponent* Sphere;
 };
 
 template<typename T>
